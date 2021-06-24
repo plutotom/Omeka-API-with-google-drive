@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head> </head>
+  <body>
+    <h2>Upload File</h2>
+    <form enctype="multipart/form-data" method="post">
+      <p>
+        <input type="text" id="endpoint" value="http://localhost/omeka/api/" />
+        Endpoint
+      </p>
+      <p>
+        <input
+          type="text"
+          id="key"
+          value="43ca10306f312f2ac162de563a60e408db2c3d25"
+        />
+        Key
+      </p>
+      <p>
+        <textarea id="body" name="w3review" rows="4" cols="50"></textarea> Enter
+        JSON here
+      </p>
+      <p><input type="text" id="item-id" /> Item ID</p>
+      <p><input type="text" id="resource" /> Resource</p>
+      <p><input type="file" id="file" /></p>
+      <input type="button" value="Get all items" onclick="getAllItems();" />
+      <input type="button" value="Get item by id" onclick="getItemById();" />
+      <input type="button" value="Create item" onclick="createItem();" />
+    </form>
+    <pre id="output"></pre>
+  </body>
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/fetch/3.6.2/fetch.js"
+    integrity="sha512-20FZL4lG1jTZXPeMkblgj4b/fsXASK5aW87Tm7Z5QK9QmmYleVGM0NlS9swfb6XT8yrFTAWkq3QfnMe7MKIX8A=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+  <script
+    src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"
+  ></script>
+  <script src="./client.js">
+    let client = new Client({
+        basePath: $("#endpoint").val(),
+        api_key: $("#key").val(),
+        resource: $("#resource").val(),
+      });
+    api.getitem().then((data) => console.log(data));
+  </script>
+  <script>
+    function getAllItems() {
+      let client = new Client({
+        basePath: $("#endpoint").val(),
+        api_key: $("#key").val(),
+        resource: $("#resource").val(),
+      });
+      api.getAllItems().then((data) => {
+        console.log(data);
+        $("#output").text(JSON.stringify(data, null, 2));
+      });
+    }
+
+    function getItemById() {
+      let client = new Client({
+        basePath: $("#endpoint").val(),
+        api_key: $("#key").val(),
+        resource: $("#resource").val(),
+      });
+      api.getItemById($("#item-id").val()).then((data) => {
+        console.log(data);
+        $("#output").text(JSON.stringify(data, null, 2));
+      });
+    }
+
+    function createItem() {
+      let client = new Client({
+        basePath: $("#endpoint").val(),
+        api_key: $("#key").val(),
+        resource: $("#resource").val(),
+      });
+      api.createItem(JSON.parse($("#body").val())).then((data) => {
+        console.log(data);
+        $("#output").text(JSON.stringify(data, null, 2));
+      });
+    }
+  </script>
+</html>
