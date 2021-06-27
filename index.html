@@ -16,13 +16,29 @@
         />
         Key
       </p>
+      <div>
+        <select name="resourcesList" id="resourcesList">
+          <option value="items">items</option>
+          <option value="tags">tags</option>
+          <option value="collections">collections</option>
+          <option value="files">files</option>
+          <option value="item_types">item_types</option>
+          <option value="elements">elements</option>
+          <option value="element_sets">element_sets</option>
+          <option value="users">users</option>
+          <option value="simple_pages">simple_pages</option>
+          <option value="site">site</option>
+          <option value="resources">resources</option>
+        </select>
+        Resources
+      </div>
       <p>
         <textarea id="body" name="w3review" rows="4" cols="50"></textarea> Enter
         JSON here
       </p>
       <p><input type="text" id="item-id" /> Item ID</p>
-      <p><input type="text" id="resource" /> Resource</p>
       <p><input type="file" id="file" /></p>
+
       <input type="button" value="Get all items" onclick="getAllItems();" />
       <input type="button" value="Get item by id" onclick="getItemById();" />
       <input type="button" value="Create item" onclick="createItem();" />
@@ -45,7 +61,7 @@
     let client = new Client({
         basePath: $("#endpoint").val(),
         api_key: $("#key").val(),
-        resource: $("#resource").val(),
+        resource: document.getElementById("resourcesList").value,
       });
     api.getitem().then((data) => console.log(data));
   </script>
@@ -54,9 +70,9 @@
       let client = new Client({
         basePath: $("#endpoint").val(),
         api_key: $("#key").val(),
-        resource: $("#resource").val(),
+        resource: document.getElementById("resourcesList").value,
       });
-      api.getAllItems().then((data) => {
+      client.getAllItems().then((data) => {
         console.log(data);
         $("#output").text(JSON.stringify(data, null, 2));
       });
@@ -66,9 +82,9 @@
       let client = new Client({
         basePath: $("#endpoint").val(),
         api_key: $("#key").val(),
-        resource: $("#resource").val(),
+        resource: document.getElementById("resourcesList").value,
       });
-      api.getItemById($("#item-id").val()).then((data) => {
+      client.getItemById($("#item-id").val()).then((data) => {
         console.log(data);
         $("#output").text(JSON.stringify(data, null, 2));
       });
@@ -78,9 +94,13 @@
       let client = new Client({
         basePath: $("#endpoint").val(),
         api_key: $("#key").val(),
-        resource: $("#resource").val(),
+        resource: document.getElementById("resourcesList").value,
       });
-      api.createItem(JSON.parse($("#body").val())).then((data) => {
+      let body = JSON.parse($("#body").val());
+      let file = $("#file")[0].files[0];
+      body = { ...body, file: file };
+
+      client.createItem(body).then((data) => {
         console.log(data);
         $("#output").text(JSON.stringify(data, null, 2));
       });

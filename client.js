@@ -27,6 +27,7 @@ class Client {
         return res.json();
       }
       throw new Error(res);
+      return res.status;
     });
   }
   getAllItems() {
@@ -34,14 +35,16 @@ class Client {
     let url = this.basePath + "/" + this.resource + this.api_key;
     let options = {
       method: "GET",
+      headers: { "Content-Type": "application/json" },
     };
     return this.request(url, options);
   }
 
   getItemById(id) {
-    let url = this.basePath + "/" + this.resource + "/" + id;
+    let url = this.basePath + "/" + this.resource + "/" + id + this.api_key;
     let options = {
       method: "GET",
+      headers: { "Content-Type": "application/json" },
     };
     return this.request(url, options);
   }
@@ -51,31 +54,32 @@ class Client {
     const options = {
       method: "POST",
       body: JSON.stringify(body),
+      headers: { "Content-Type": "application/json" },
     };
     return this.request(url, options);
     // Optional: add your own .catch to process/deliver errors or fallbacks specific to this resource
   }
 }
-let api = new Client({
-  api_key: "43ca10306f312f2ac162de563a60e408db2c3d25",
-  resource: "items",
-});
-console.log(api);
+// let api = new Client({
+//   api_key: "43ca10306f312f2ac162de563a60e408db2c3d25",
+//   resource: "items",
+// });
+// console.log(api);
 // api.getAllItems().then((data) => console.log(data));
 // api.getItemById("10").then((data) => console.log(data));
 // api.createItem(body).then((data) => console.log(data));
 
-body = {
-  item_type: { id: 1 },
+// body = {
+//   item_type: { id: 1 },
 
-  public: true,
-  featured: false,
-  tags: [{ name: "foo" }, { name: "bar" }],
-  element_texts: [
-    {
-      html: false,
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      element: { id: 1 },
-    },
-  ],
-};
+//   public: true,
+//   featured: false,
+//   tags: [{ name: "foo" }, { name: "bar" }],
+//   element_texts: [
+//     {
+//       html: false,
+//       text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+//       element: { id: 1 },
+//     },
+//   ],
+// };
