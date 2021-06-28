@@ -4,6 +4,17 @@
 // fetch = require("node-fetch"); // only needed when ran by node.
 // const querystring = require("querystring"); // Uknown
 
+/*
+ *  let api = new Client({
+ *    api_key: "43ca10306f312f2ac162de563a60e408db2c3d25",
+ *    resource: "items",
+ *  });
+ *  console.log(api);
+ *  api.getAllItems().then((data) => console.log(data));
+ *  api.getItemById("10").then((data) => console.log(data));
+ *  api.createItem(body).then((data) => console.log(data));
+ */
+
 class Client {
   constructor(settings) {
     this.api_key = "?key=" + settings.api_key;
@@ -58,26 +69,3 @@ class Client {
     // Optional: add your own .catch to process/deliver errors or fallbacks specific to this resource
   }
 }
-// let api = new Client({
-//   api_key: "43ca10306f312f2ac162de563a60e408db2c3d25",
-//   resource: "items",
-// });
-// console.log(api);
-// api.getAllItems().then((data) => console.log(data));
-// api.getItemById("10").then((data) => console.log(data));
-// api.createItem(body).then((data) => console.log(data));
-
-// body = {
-//   item_type: { id: 1 },
-
-//   public: true,
-//   featured: false,
-//   tags: [{ name: "foo" }, { name: "bar" }],
-//   element_texts: [
-//     {
-//       html: false,
-//       text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-//       element: { id: 1 },
-//     },
-//   ],
-// };
