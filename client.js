@@ -1,9 +1,7 @@
 //! This is the start to make a client class for Omeka
-//! The goal is to make it both Post, Get, and Get by id.
-//? this is not compleate but is only a template.
+//* Class has create, getAll, getById.
 
 // fetch = require("node-fetch"); // only needed when ran by node.
-
 // const querystring = require("querystring"); // Uknown
 
 class Client {
