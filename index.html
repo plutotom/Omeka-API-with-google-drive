@@ -1,9 +1,12 @@
-<!DOCTYPE html>
 <html>
   <head> </head>
   <body>
     <h2>Upload File</h2>
-    <form enctype="multipart/form-data" method="post">
+    <form
+      enctype="multipart/form-data"
+      action="gDriveInstance.php"
+      method="post"
+    >
       <p>
         <input type="text" id="endpoint" value="http://localhost/omeka/api/" />
         Endpoint
@@ -33,7 +36,7 @@
         Resources
       </div>
       <p>
-        <textarea id="body" name="w3review" rows="4" cols="50"></textarea> Enter
+        <textarea id="body" name="jsonBox" rows="4" cols="50"></textarea> Enter
         JSON here
       </p>
       <p><input type="text" id="item-id" /> Item ID</p>
@@ -42,11 +45,11 @@
       <input type="button" value="Get all items" onclick="getAllItems();" />
       <input type="button" value="Get item by id" onclick="getItemById();" />
       <input type="button" value="Create item" onclick="createItem();" />
+      <input type="submit" value="Submit" />
     </form>
     <pre id="output"></pre>
   </body>
-
-  <script
+  <!-- <script
     src="https://cdnjs.cloudflare.com/ajax/libs/fetch/3.6.2/fetch.js"
     integrity="sha512-20FZL4lG1jTZXPeMkblgj4b/fsXASK5aW87Tm7Z5QK9QmmYleVGM0NlS9swfb6XT8yrFTAWkq3QfnMe7MKIX8A=="
     crossorigin="anonymous"
@@ -106,4 +109,5 @@
       });
     }
   </script>
+</html> -->
 </html>
