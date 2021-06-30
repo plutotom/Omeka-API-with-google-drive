@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '/vendor/autoload.php'; // inports google php client
 
-print("Loaded googleDriveClient.php");
+print("Loaded googleDriveClient.php \n");
 
 class DriveApi {
   public $client;
@@ -10,13 +10,13 @@ class DriveApi {
   public $file;
   public $permission;
   public function __construct() {
-  $this->client = new Google\Client();
-
   // puts service account's credentials into env.
   putenv('GOOGLE_APPLICATION_CREDENTIALS=./service-account.json'); 
   // checks to see if service account creds exists.
   // service account creds
   $application_creds = __DIR__ . '/service-account.json';
+  
+  $this->client = new Google\Client();
 
   if ($credentials_file =  file_exists($application_creds) ? $application_creds : false) {
     // set the location manually
@@ -30,8 +30,8 @@ class DriveApi {
   };
 
 
-    $this->client = $this->client->setScopes("https://www.googleapis.com/auth/drive");
     $this->service = new Google_Service_Drive($this->client);
+    $this->client = $this->client->setScopes("https://www.googleapis.com/auth/drive");
     $this->drive = new Google_Service_Drive_Drive();
     $this->file = new Google_Service_Drive_Drivefile();
     $this->permission = new Google_Service_Drive_Permission();

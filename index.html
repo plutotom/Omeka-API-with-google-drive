@@ -7,6 +7,7 @@
       action="gDriveInstance.php"
       method="post"
     >
+      <h3>Omeka API Settings</h3>
       <p>
         <input type="text" id="endpoint" value="http://localhost/omeka/api/" />
         Endpoint
@@ -40,8 +41,32 @@
         JSON here
       </p>
       <p><input type="text" id="item-id" /> Item ID</p>
-      <p><input type="file" id="file" /></p>
 
+      <br />
+      <h3>Google drive settings</h3>
+      <p>
+        <select name="folderSelect" id="folderSelect">
+          <option value="Chapel Messages">Chapel Messages</option>
+          <option value="TREN">TREN</option>
+          <option value="Stone-Campbell Hymnal Collection">
+            Stone-Campbell Hymnal Collection
+          </option>
+        </select>
+        Google Drive Folder
+      </p>
+
+      <p><input name="file" type="file" id="file" /></p>
+      <p>
+        <input name="fileName" type="text" id="file" /> Google drive file name
+      </p>
+      <p>
+        <select name="mimeType" id="mimeType">
+          <option value="audio/mpeg">audio/mpeg</option>
+        </select>
+        MimeType
+      </p>
+
+      <br />
       <input type="button" value="Get all items" onclick="getAllItems();" />
       <input type="button" value="Get item by id" onclick="getItemById();" />
       <input type="button" value="Create item" onclick="createItem();" />

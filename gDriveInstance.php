@@ -1,24 +1,55 @@
 <?php
-// logs erros
+include './gDriveApiClient/googleDriveClient.php'; // Importing DriveApi
+include './omekaClientAPI.php';
+// Error logging
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-    include './gDriveApiClient/googleDriveClient.php';
-    
-    // //! Uploading file to google drive and getting file id and file share link
-    // $fileToUpload["podcast_mp3_file"] =  file_get_contents("./test_file_for_uploading.mp3");
-    // // file_get_contents("./test_file_for_uploading.mp3");
-    // $DriveApi = new DriveApi($client);
-    // // TODO make $Driveapi->uplaod_fileC return file id and file share link
+// Defining google drive parent folder ids.
+define("FOLDERCHAPELMESSAGES", "15UQ9dqIqjR5jqmzsT-ReJPisQncJQUvx");
+define("FOLDERTREN", "15UQ9dqIqjR5jqmzsT-ReJPisQncJQUvx");
+define("FOLDERHYMNAL", "15UQ9dqIqjR5jqmzsT-ReJPisQncJQUvx");
+
+
+$fileName = $_POST["fileName"];
+$mimeType = $_POST["mimeType"];
+$folder = $_POST["folderSelect"];
+$file = $_FILES["file"];
+
+
+function upLoadFile($folderId, $mimeType, $fileName, $file){
+    $DriveApi = new DriveApi();
+    // TODO make $Driveapi->uplaod_fileC return file_id, and file_name
     // $mimeType = 'audio/mpeg';
-    // $returned_file = $DriveApi->upload_file($fileToUpload["file_name"], $parent_folder_id = "15UQ9dqIqjR5jqmzsT-ReJPisQncJQUvx", $fileToUpload["podcast_mp3_file"], $mimeType);
-   
-    // $fileToUpload["podcastFileURL"] = $DriveApi->get_file_share_link($returned_file->id);; 
-    
+    $returned_file = $DriveApi->upload_file($fileName, $folderId, $file, $mimeType);
+    $fileToUpload["podcastFileURL"] = $DriveApi->get_file_share_link($returned_file->id);; 
     // print_r("File share link: ". $fileToUpload["podcastFileURL"] ."\n");
     // print_r("uploaded file id: " . $returned_file->id);
+    return $fileToUpload["podcastFileURL"];
+}   
 
-    
+// Checks for what folder user selected for uplaod and returns that folder's id.
+function parentFolder($userSelect) {
+    if($userSelect == "Chapel Messages"){
+        return FOLDERCHAPELMESSAGES;
+    }
+    if($userSelect == "TREN"){
+        return FOLDERTREN;
+    }
+    if($userSelect == "Stone-Campbell Hymnal Collection"){
+        return FOLDERHYMNAL;
+    }  
+}
+// $folderId = parentFolder($folder); // returns the folder ID acording to folder name
+// $gDriveShareLink = upLoadFile($folderId, $file["type"], $fileName, file_get_contents($_FILES["file"]["tmp_name"])); // uplaods file to google drive then returns the files share URL.
+$settings = ["api_key" => "key", "resource" => "items"];
+$omekaAPI = new OmekaClient($settings);
 
+// print_r($omekaAPI->log());
+$urlTest = "http://localhost/omeka/api/"."items" . "/19" ."?key=43ca10306f312f2ac162de563a60e408db2c3d25";
+$js = json_decode(file_get_contents($urlTest), true);
+
+print_r($js);
+//TODO uploadToOmeka($gDriveShareLink);
 ?>
