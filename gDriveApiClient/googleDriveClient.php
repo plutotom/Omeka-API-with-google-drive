@@ -69,5 +69,4 @@ class DriveApi {
     // print_r("web link URL: " .$web_link_view);
     return $web_link_view;
   }
-
 }

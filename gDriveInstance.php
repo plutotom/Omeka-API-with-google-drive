@@ -43,13 +43,9 @@ function parentFolder($userSelect) {
 }
 // $folderId = parentFolder($folder); // returns the folder ID acording to folder name
 // $gDriveShareLink = upLoadFile($folderId, $file["type"], $fileName, file_get_contents($_FILES["file"]["tmp_name"])); // uplaods file to google drive then returns the files share URL.
-$settings = ["api_key" => "key", "resource" => "items"];
-$omekaAPI = new OmekaClient($settings);
 
-// print_r($omekaAPI->log());
-$urlTest = "http://localhost/omeka/api/"."items" . "/19" ."?key=43ca10306f312f2ac162de563a60e408db2c3d25";
-$js = json_decode(file_get_contents($urlTest), true);
 
-print_r($js);
+
+
 //TODO uploadToOmeka($gDriveShareLink);
 ?>
