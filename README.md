@@ -1,10 +1,5 @@
 # Omeka API client documentation
 
-#Tag: https://www.notion.so/LCU-CT-2021-work-9b09ff8c76b642f08c09fb03c1cc7cb4
-Area: https://www.notion.so/LCU-CT-Summer-3803c32fe3d84eaa8272246bcc21dd45
-Created Date: July 3, 2021 1:11 PM
-Last edit date: July 3, 2021 2:04 PM
-
 # Introduction
 
 OmekaClient is a php class for interacting with the Omeka API using php.
