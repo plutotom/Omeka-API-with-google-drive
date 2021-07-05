@@ -41,10 +41,11 @@ class Client {
   }
   getAllItems() {
     // let qs = options ? "?" + querystring.stringify(options) : "";
-    let url = this.basePath + "/" + this.resource + this.api_key;
+    // let url = this.basePath + "/" + this.resource + this.api_key;
+    let url = this.basePath + "/" + this.resource;
     let options = {
       method: "GET",
-      headers: { "Content-Type": "application/json" },
+      // headers: { "Content-Type": "application/json" },
     };
     return this.request(url, options);
   }

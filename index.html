@@ -90,25 +90,27 @@
 
   <!-- Useing javascript Omeka API client -->
   <!-- Will be removed, moving over to php omeka api client -->
-  <script
+  <!-- <script
     src="https://cdnjs.cloudflare.com/ajax/libs/fetch/3.6.2/fetch.js"
     integrity="sha512-20FZL4lG1jTZXPeMkblgj4b/fsXASK5aW87Tm7Z5QK9QmmYleVGM0NlS9swfb6XT8yrFTAWkq3QfnMe7MKIX8A=="
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
-  ></script>
+  ></script> -->
   <script
     src="https://code.jquery.com/jquery-3.1.1.min.js"
     integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
     crossorigin="anonymous"
   ></script>
+
   <script src="./client.js">
     let client = new Client({
         basePath: $("#endpoint").val(),
         api_key: $("#key").val(),
         resource: document.getElementById("resourcesList").value,
       });
-    api.getitem().then((data) => console.log(data));
+    // api.getitem().then((data) => console.log(data));
   </script>
+
   <script>
     function getAllItems() {
       let client = new Client({
