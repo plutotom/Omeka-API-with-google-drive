@@ -1,0 +1,39 @@
+{
+  "item_type": { "id": 20 },
+
+  "public": true,
+  "featured": false,
+  "tags": [{ "name": "foo" }, { "name": "undergrad" }],
+  "element_texts": [
+    {
+      "html": false,
+      "text": "test preview of Gdrive",
+      "element": { "id": 50 }
+    },
+    {
+      "html": false,
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "element": { "id": 1 }
+    },
+    {
+      "html": false,
+      "text": "https://drive.google.com/file/d/1HKLhIhTqodTJmtnHmuABQ34GbF-oZjG3/preview",
+      "element": { "id": 28 }
+    },
+    {
+      "html": false,
+      "text": "July 3, 2021",
+      "element": { "id": 55 }
+    },
+    {
+      "html": false,
+      "text": "Gdrive File id goes here",
+      "element": { "id": 67 }
+    },
+    {
+      "html": false,
+      "text": "Author name goes here",
+      "element": { "id": 56 }
+    }
+  ]
+}

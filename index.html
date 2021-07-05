@@ -59,12 +59,25 @@
       <p>
         <input name="fileName" type="text" id="file" /> Google drive file name
       </p>
+      <p><input name="author" type="text" id="file" /> author name</p>
       <p>
         <select name="mimeType" id="mimeType">
           <option value="audio/mpeg">audio/mpeg</option>
         </select>
         MimeType
       </p>
+
+      <div>
+        <input
+          type="checkbox"
+          id="omekaFilePreview"
+          name="omekaFilePreview"
+          value="omeka File Preview"
+        />
+        <label for="omekaFilePreview"
+          >Do you want to make the file a preview or hyperlink?</label
+        >
+      </div>
 
       <br />
       <input type="button" value="Get all items" onclick="getAllItems();" />
@@ -74,7 +87,10 @@
     </form>
     <pre id="output"></pre>
   </body>
-  <!-- <script
+
+  <!-- Useing javascript Omeka API client -->
+  <!-- Will be removed, moving over to php omeka api client -->
+  <script
     src="https://cdnjs.cloudflare.com/ajax/libs/fetch/3.6.2/fetch.js"
     integrity="sha512-20FZL4lG1jTZXPeMkblgj4b/fsXASK5aW87Tm7Z5QK9QmmYleVGM0NlS9swfb6XT8yrFTAWkq3QfnMe7MKIX8A=="
     crossorigin="anonymous"
@@ -134,5 +150,4 @@
       });
     }
   </script>
-</html> -->
 </html>
