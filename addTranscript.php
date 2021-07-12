@@ -92,6 +92,12 @@ $omekaFilePreview = $_POST["omekaFilePreview"];
     $resJson = json_decode($res, JSON_PRETTY_PRINT);
     // putting all items names and ids in select dropdown
     
+try {
+  //code...
+} catch (\Exception $th) {
+  //throw $th;
+}
+
     echo "<div>";
     echo " <select name=itemsList id=selectItemList >";
     foreach ($resJson as &$value) {

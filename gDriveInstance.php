@@ -19,11 +19,12 @@ $omekaFilePreview = $_POST["omekaFilePreview"];
 // uploading file to google drive
 $folderId = parentFolder($folder); // returns the folder ID acording to folder name
 print_r($folderId);
+
 try {
     $fileContent = file_get_contents($_FILES["file"]["tmp_name"]);
-} catch (\Exception $th) {
+} catch (Exception $th) {
     echo "cought exception: ", $th->getMessage(), "\n";
-    throw $th;
+    throw new Exception("sorry this broke Err: ". $th->getMessage());
 }
 
 $gDriveFileInfo = upLoadFile($folderId, $file["type"], $fileName, $fileContent); // uplaods file to google drive then returns the files share URL.
