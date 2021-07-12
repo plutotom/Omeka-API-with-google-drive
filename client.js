@@ -1,9 +1,6 @@
 //! This is the start to make a client class for Omeka
 //* Class has create, getAll, getById.
 
-// fetch = require("node-fetch"); // only needed when ran by node.
-// const querystring = require("querystring"); // Uknown
-
 /*
  *  let api = new Client({
  *    api_key: "43ca10306f312f2ac162de563a60e408db2c3d25",
@@ -18,7 +15,10 @@
 class Client {
   constructor(settings) {
     this.api_key = "?key=" + settings.api_key;
-    this.basePath = "http://localhost/omeka/api";
+    this.basePath =
+      settings.basePath === null || ""
+        ? "http://localhost/omeka/api"
+        : settings.basePath;
     this.resource = settings.resource;
   }
   request(url, options = {}) {
@@ -35,7 +35,9 @@ class Client {
       if (res.ok) {
         return res.json();
       }
+      console.log(res);
       throw new Error(res);
+
       return res.status;
     });
   }
@@ -45,7 +47,7 @@ class Client {
     let url = this.basePath + "/" + this.resource;
     let options = {
       method: "GET",
-      // headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json" },
     };
     return this.request(url, options);
   }

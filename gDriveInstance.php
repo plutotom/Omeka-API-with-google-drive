@@ -1,15 +1,12 @@
 <?php
-include './gDriveApiClient/googleDriveClient.php'; // Importing DriveApi
-include './omekaClientAPI.php';
 // Error logging
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+include './omekaClientAPI.php';
+include './gDrivehelperFunctions.php';
 
-// Defining google drive parent folder ids.
-define("FOLDERCHAPELMESSAGES", "15UQ9dqIqjR5jqmzsT-ReJPisQncJQUvx");
-define("FOLDERTREN", "15UQ9dqIqjR5jqmzsT-ReJPisQncJQUvx");
-define("FOLDERHYMNAL", "15UQ9dqIqjR5jqmzsT-ReJPisQncJQUvx");
+echo "loading gDrive instance";
 
 // destructinig html user input values.
 $fileName = $_POST["fileName"];
@@ -19,43 +16,21 @@ $file = $_FILES["file"];
 $autherName = $_POST["author"];
 $omekaFilePreview = $_POST["omekaFilePreview"];
 
-
-function upLoadFile($folderId, $mimeType, $fileName, $file){
-    $DriveApi = new DriveApi();
-    // TODO make $Driveapi->uplaod_fileC return file_id, and file_name
-    // $mimeType = 'audio/mpeg';
-    $returned_file = $DriveApi->upload_file($fileName, $folderId, $file, $mimeType);
-    $fileToUpload["podcastFileURL"] = $DriveApi->get_file_share_link($returned_file->id);; 
-    // print_r("File share link: ". $fileToUpload["podcastFileURL"] ."\n");
-    // print_r("uploaded file id: " . $returned_file->id);
-    $obj = [
-        "fileShareLink" => $fileToUpload["podcastFileURL"],
-        "fileId" => $returned_file->id
-    ];
-    return $obj;
-}   
-
-
-// Checks for what folder user selected for uplaod and returns that folder's id.
-function parentFolder($userSelect) {
-    if($userSelect == "Chapel Messages"){
-        return FOLDERCHAPELMESSAGES;
-    }
-    if($userSelect == "TREN"){
-        return FOLDERTREN;
-    }
-    if($userSelect == "Stone-Campbell Hymnal Collection"){
-        return FOLDERHYMNAL;
-    }  
-}
-
 // uploading file to google drive
 $folderId = parentFolder($folder); // returns the folder ID acording to folder name
-$gDriveFileInfo = upLoadFile($folderId, $file["type"], $fileName, file_get_contents($_FILES["file"]["tmp_name"])); // uplaods file to google drive then returns the files share URL.
+print_r($folderId);
+try {
+    $fileContent = file_get_contents($_FILES["file"]["tmp_name"]);
+} catch (\Exception $th) {
+    echo "cought exception: ", $th->getMessage(), "\n";
+    throw $th;
+}
+
+$gDriveFileInfo = upLoadFile($folderId, $file["type"], $fileName, $fileContent); // uplaods file to google drive then returns the files share URL.
 
 $gDriveShareLink = $gDriveFileInfo["fileShareLink"];
 $gDriveFileId = $gDriveFileInfo["fileId"];
-echo "finished uplaod to google drive";
+echo $fileName . " uplaod to google drive";
 
 
 

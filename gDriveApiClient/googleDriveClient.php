@@ -15,7 +15,6 @@ class DriveApi {
   // checks to see if service account creds exists.
   // service account creds
   $application_creds = __DIR__ . '/service-account.json';
-  
   $this->client = new Google\Client();
 
   if ($credentials_file =  file_exists($application_creds) ? $application_creds : false) {
@@ -28,8 +27,9 @@ class DriveApi {
     // echo missingServiceAccountDetailsWarning();
     echo "missingServiceAccountDetailsWarning";
   };
-
-
+  
+  
+  
     $this->service = new Google_Service_Drive($this->client);
     $this->client = $this->client->setScopes("https://www.googleapis.com/auth/drive");
     $this->drive = new Google_Service_Drive_Drive();
@@ -44,12 +44,19 @@ class DriveApi {
       'parents'=> [$parent_folder_id] // must be in list -> []
     ));
     // $mimeType='audio/mpeg';
-    $uploaded_file = $this->service->files->create($this->file, array(
-      'data' => $file_content,
-      'mimeType' => $mimeType,
-      'fields' => 'id',
-      'uploadType' => "media"));
+    try {
+      $uploaded_file = $this->service->files->create($this->file, array(
+        'data' => $file_content,
+        'mimeType' => $mimeType,
+        'fields' => 'id',
+        'uploadType' => "media"));
+    } catch (Exception $th) {
+      echo "cought exception: ", $th->getMessage(), "\n";
+
+      // throw $th;
+    }
     $this->set_file_permissions($uploaded_file->id);
+
     return $uploaded_file;
   }
 
@@ -57,15 +64,33 @@ class DriveApi {
   public function set_file_permissions($file_id){
     $this->permission->setType('anyone');
     $this->permission->setRole('reader');
-    $this->permission->setAllowFileDiscovery( True ); // should make file searcherable.
-    $returned_permissions = $this->service->permissions->create($file_id, $this->permission);
+    $this->permission->setAllowFileDiscovery( True ); // should make file searcherable(?).
+    try {
+      $returned_permissions = $this->service->permissions->create($file_id, $this->permission);
+    } catch (Exception $th) {
+      echo "cought exception: ", $th->getMessage(), "\n";
+      //throw $th;
+    }
+    
     return $returned_permissions;
   }
 
   // Takes file id and the google service and returns the web view link (i.e., the file share link)
   public function get_file_share_link($file_id){
-    $file_info = $this->service->files->get($file_id, array("fields"=>"webViewLink"));
-    $web_link_view = $file_info->getWebViewLink();
+    try {
+      $file_info = $this->service->files->get($file_id, array("fields"=>"webViewLink"));
+    } catch (Exception $th) {
+      echo "cought exception: ", $th->getMessage(), "\n";
+
+      //throw $th;
+    }
+    try {
+      $web_link_view = $file_info->getWebViewLink();
+    } catch (Exception $th) {
+      echo "cought exception: ", $th->getMessage(), "\n";
+      //throw $th;
+    }
+    
     // print_r("web link URL: " .$web_link_view);
     return $web_link_view;
   }
